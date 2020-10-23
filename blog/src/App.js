@@ -8,37 +8,13 @@ function App() {
   let [따봉, 따봉변경] = useState([0,0,0]);
 
   let [modal, modal변경] = useState(false);
-
-  var 어레이 = [2,3,4];
-  {/* map을 사용하면 각각의 값에 *2를 해서 새로운 어레이가 생성 된다. => 유사 반복문*/}
-  var 뉴어레이 = 어레이.map(function(a){
-    return a*2
-  });
   
   return (
     <div className="App">
       <div className="black-nav">
         <div>개발 blog</div>
       </div>
-      {/*
-      <div className="list">
-        <h3> {글제목[0]} <span onClick={ ()=>{ 따봉변경(따봉+1) } }>👍</span> {따봉} </h3>
-        <p>2월 17일 발행</p>
-        <hr/>
-      </div>
 
-      <div className="list">
-        <h3> {글제목[1]}</h3>
-        <p>2월 16일 발행</p>
-        <hr/>
-      </div>
-
-      <div className="list">
-        <h3 onClick={ ()=>{ modal변경(true)} }> {글제목[2]}</h3>
-        <p>2월 10일 발행</p>
-        <hr/>
-      </div>
-      */}
     {
       글제목.map(function(글, 좋아요){ //파라미터가 차례대로 넘어온다.
         return ( 
@@ -58,17 +34,22 @@ function App() {
       <button onClick={ ()=> { modal변경(!modal)}}>버튼</button>
       {
         modal === true
-        ? <Modal></Modal>
+        ? <Modal 글제목={글제목} ></Modal> // 자식 컴포넌트
         : null 
+        // props로 자식에게 state 전해주는 법
+        // 1. <자식컴포넌트 작명={state명} />
+        // 2. 자식컴포넌트에서 props 파라미터 입력 후 사용
+        // 참고 > 꼭 중괄호 {}로 전송해야하는 것은 아님.
+        //    <Modal 글제목="강남우동맛집"></Modal>으로 일반텍스트도 전송가능
       }
     </div>
   );
 }
 
-function Modal(){
+function Modal(props){ //부모에게 전달받은 props는 전부 들어가게 됨
   return(
     <div className="modal">
-        <h2>제목</h2>
+        <h2>제목 {props.글제목[0]}</h2>
         <p>날짜</p>
         <p>상세내용</p>
       </div>
