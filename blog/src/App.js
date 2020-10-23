@@ -8,6 +8,7 @@ function App() {
   let [따봉, 따봉변경] = useState([0,0,0]);
 
   let [modal, modal변경] = useState(false);
+  let [누른제목, 누른제목변경] = useState(0);
   
   return (
     <div className="App">
@@ -16,14 +17,14 @@ function App() {
       </div>
 
     {
-      글제목.map(function(글, 좋아요){ //파라미터가 차례대로 넘어온다.
+      글제목.map(function(글, i){ 
         return ( 
         <div className="list">
-              <h3> {글} <span onClick={ ()=>{
+              <h3 onClick={ ()=> { 누른제목변경(i) } } > {글} <span onClick={ ()=>{
                 var newArray = [...따봉];
-                newArray[좋아요]++;
+                newArray[i]++;
                 따봉변경(newArray) 
-                } }>👍</span> {따봉[좋아요]}</h3>
+                } }>👍</span> {따봉[i]}</h3>
               <p>2월 16일 발행</p>
               <hr/>
           </div>
@@ -31,25 +32,24 @@ function App() {
       })
     }
 
+    {/* <button onClick={ ()=> { 누른제목변경(0) } }>버튼1</button>
+    <button onClick={ ()=> { 누른제목변경(1) } }>버튼2</button>
+    <button onClick={ ()=> { 누른제목변경(2) } }>버튼3</button> */}
+
       <button onClick={ ()=> { modal변경(!modal)}}>버튼</button>
       {
         modal === true
-        ? <Modal 글제목={글제목} ></Modal> // 자식 컴포넌트
+        ? <Modal 글제목={글제목} 누른제목={누른제목}></Modal> 
         : null 
-        // props로 자식에게 state 전해주는 법
-        // 1. <자식컴포넌트 작명={state명} />
-        // 2. 자식컴포넌트에서 props 파라미터 입력 후 사용
-        // 참고 > 꼭 중괄호 {}로 전송해야하는 것은 아님.
-        //    <Modal 글제목="강남우동맛집"></Modal>으로 일반텍스트도 전송가능
       }
     </div>
   );
 }
 
-function Modal(props){ //부모에게 전달받은 props는 전부 들어가게 됨
+function Modal(props){ 
   return(
     <div className="modal">
-        <h2>제목 {props.글제목[0]}</h2>
+        <h2>{props.글제목[props.누른제목]}</h2>
         <p>날짜</p>
         <p>상세내용</p>
       </div>
