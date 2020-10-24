@@ -33,6 +33,7 @@ function App() {
         )  
       })
     }
+    <Profile/> {/* 컴포넌트 아무데나 집어넣기 */}
 
     <div className="publish">
       <input onChange={ (e)=>{ 입력값변경(e.target.value) }}/>
@@ -61,6 +62,34 @@ function Modal(props){
         <p>상세내용</p>
       </div>
   )
+}
+
+// 옛날 리액트 문법
+class Profile extends React.Component{
+  constructor(){ // class의 변수/초기값을 저장할 때 쓴다.
+    super();
+    this.state = { name : 'Kim', age : 30} // state는 constructor안에 작성
+  }
+
+  changeName = ()=> {
+    this.setState({name : 'Park'})
+  }
+
+  // changeName() { 로 쓰려면 함수를 불러오는 곳에서 .bind(this)를 사용해 줘야 한다.
+  //   this.setState({name : 'Park'})
+  // }
+
+  render(){
+    return(
+      <div>
+        <h3>프로필 입니다.</h3>
+        <p>저는 { this.state.name }입니다.</p>
+        <button onClick={ this.changeName }>버튼</button>
+        {/* 최신문법에서 변경하는 함수들은 state를 대체를 해버리지만 setState()는 원하는 state를 변경만 해 준다. */}
+        {/* 과거 리액트에서는 this를 써주는게 중요했다.  */}
+      </div>
+    )
+  }
 }
 
 export default App;
