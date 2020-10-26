@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import React, {useState} from 'react';
 import { Navbar, Nav, NavDropdown, Button, Jumbotron } from 'react-bootstrap';
 import './App.css';
@@ -47,29 +46,29 @@ function App() {
 
     <div className="container">
       <div className="row">
-        {/* bootstrap 문법! 안에 있는 row를 12컬럼으로 쪼개줌 */}
-        <div className="col-md-4">
-          <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%"/>
-          <h4>{ shoes[0].title } </h4>
-          <p>{ shoes[0].content }</p>
-        </div>
-        {/* col-4 : 그 중에 4개 컬럼을 차지하는 div 박스를 만들겠다. */}
-        {/* col-md-4는 모바일에서 세로졍렬을 위해.  */}
-        <div className="col-md-4">
-          <img src="https://codingapple1.github.io/shop/shoes2.jpg" width="100%"/>
-          <h4>상품명</h4>
-          <p>상품설명 & 가격</p>
-        </div>
-        <div className="col-md-4">
-          <img src="https://codingapple1.github.io/shop/shoes3.jpg" width="100%"/>
-          <h4>상품명</h4>
-          <p>상품설명 & 가격</p>
-        </div>
+        {
+          // {} 필수
+          shoes.map((a, i)=>{
+            return <Card shoes={shoes[i]} i={i} key={i}/> //반복시킨 HTML에는 key={}이게 필요 
+            // shoes[i]를 넣든 돌아갈때 각 데이터인 a를 넣든 결과 동일
+          })
+        }
       </div>
     </div>
 
     </div>
   );
+}
+
+function Card(props) {
+  return(
+    <div className="col-md-4">
+        <img src={'https://codingapple1.github.io/shop/shoes'+(props.i+1)+'.jpg'} width="100%"/>
+        {/* 글자 중간에 변수를 넣고싶다면 {}를 사용해서 쓴다. */}
+        <h4>{ props.shoes.title } </h4>
+        <p>{ props.shoes.content } & { props.shoes.price }</p>
+    </div>
+  )
 }
 
 export default App;
