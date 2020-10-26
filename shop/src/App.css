@@ -2,6 +2,13 @@
   text-align: center;
 }
 
+.background {
+  background-image : url('./background.jpg');
+  /* 강좌 따라 하면 에러나요 어떻게 해야할지 잘 모르겠네요 ㅠㅠ */
+  background-position : center;
+  color: white;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
