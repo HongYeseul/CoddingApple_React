@@ -1,8 +1,16 @@
 import logo from './logo.svg';
+import React, {useState} from 'react';
 import { Navbar, Nav, NavDropdown, Button, Jumbotron } from 'react-bootstrap';
 import './App.css';
+import Data from './data.js';
+//.js 생략해도 js 파일인지 자동인식 가능
 
 function App() {
+
+  let [shoes, shoes변경] = useState(Data);
+  // 파일 쪼갤 때 사용하는 import/ export 문법
+  // 내보내기 : export default 변수명
+  // 가져오기 : import 변수명 from 경로
   return (
     <div className="App">
       
@@ -42,8 +50,8 @@ function App() {
         {/* bootstrap 문법! 안에 있는 row를 12컬럼으로 쪼개줌 */}
         <div className="col-md-4">
           <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%"/>
-          <h4>상품명</h4>
-          <p>상품설명 & 가격</p>
+          <h4>{ shoes[0].title } </h4>
+          <p>{ shoes[0].content }</p>
         </div>
         {/* col-4 : 그 중에 4개 컬럼을 차지하는 div 박스를 만들겠다. */}
         {/* col-md-4는 모바일에서 세로졍렬을 위해.  */}
