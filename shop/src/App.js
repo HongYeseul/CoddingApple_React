@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import { Navbar, Nav, NavDropdown, Button, Jumbotron } from 'react-bootstrap';
 import './App.css';
 import Data from './data.js';
-//.js 생략해도 js 파일인지 자동인식 가능
+
+import {Link, Route, Switch} from 'react-router-dom'
 
 function App() {
 
@@ -32,29 +33,54 @@ function App() {
         </Navbar.Collapse>
     </Navbar>
 
-    <Jumbotron className="background">
-      {/* Jumbotron은 대문! */}
-      <h1>20% Season OFF</h1>
-      <p>
-        This is a simple hero unit, a simple jumbotron-style component for calling
-        extra attention to featured content or information.
-      </p>
-      <p>
-        <Button variant="primary">Learn more</Button>
-      </p>
-    </Jumbotron>
+    
 
-    <div className="container">
-      <div className="row">
-        {
-          // {} 필수
-          shoes.map((a, i)=>{
-            return <Card shoes={shoes[i]} i={i} key={i}/> //반복시킨 HTML에는 key={}이게 필요 
-            // shoes[i]를 넣든 돌아갈때 각 데이터인 a를 넣든 결과 동일
-          })
-        }
+    {/*그냥 React에서 경로를 주면 /detail 페이지를 가도 /페이지가 뜨기 때문에 exact속성추가 -> 경로가 정확히 일치할 때만 보여줌*/} 
+    <Route exact path="/"> 
+      <Jumbotron className="background">
+        <h1>20% Season OFF</h1>
+        <p>
+          This is a simple hero unit, a simple jumbotron-style component for calling
+          extra attention to featured content or information.
+        </p>
+        <p>
+          <Button variant="primary">Learn more</Button>
+        </p>
+      </Jumbotron>
+
+      <div className="container">
+        <div className="row">
+          {
+            shoes.map((a, i)=>{
+              return <Card shoes={shoes[i]} i={i} key={i}/> 
+            })
+          }
+        </div>
       </div>
-    </div>
+    </Route>
+    <Route path="/detail">
+      <div className="container">
+        <div className="row">
+          <div className="col-md-6">
+            <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
+          </div>
+          <div className="col-md-6 mt-4">
+            <h4 className="pt-5">상품명</h4>
+            <p>상품설명</p>
+            <p>120000원</p>
+            <button className="btn btn-danger">주문하기</button> 
+          </div>
+        </div>
+      </div>
+    </Route>
+    {/* 코드를 깔끔하게 하기 위해서 컴포넌트를 보여주고 싶을 때
+      <Route path="/어쩌구" component={Modal}></Route> 혹은
+      <Route path="/어쩌구"> <Card/> </Route> 가능
+    */}
+
+    {/* React-Router 특징
+      - 각각 페이지마다 다른 HTML 파일을 보여주는게 아닌 HTML 내부의 내용을 갈아치워서 다른 페이지처럼 흉내내는 것 뿐이다.
+    */}
 
     </div>
   );
