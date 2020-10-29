@@ -9,9 +9,7 @@ import {Link, Route, Switch} from 'react-router-dom'
 function App() {
 
   let [shoes, shoes변경] = useState(Data);
-  // 파일 쪼갤 때 사용하는 import/ export 문법
-  // 내보내기 : export default 변수명
-  // 가져오기 : import 변수명 from 경로
+
   return (
     <div className="App">
       
@@ -34,7 +32,7 @@ function App() {
         </Navbar.Collapse>
     </Navbar>
 
-    <Switch> {/* 매치되는 Route들을 전부 보여주지말고 한번에 하나만 보여주세요! 할 때 사용 */}
+    <Switch>
       <Route exact path="/"> 
         <Jumbotron className="background">
           <h1>20% Season OFF</h1>
@@ -58,14 +56,10 @@ function App() {
         </div>
       </Route>
 
-      <Route path="/detail">
-        <Detail/>
+      <Route path="/detail/:id"> {/* :id는 뒤에 아무 문자나 입력 받겠다는 URL 작명법. 콜론 뒤에 마음대로 작명하면 됨 */}
+        <Detail shoes={shoes}/>
       </Route>
       
-      <Route path="/:id"> 
-        {/* Switch 사용하지 않으면 detail페이지로 이동하면 이 페이지도 같이 보임 */}
-        <div>아무거나 적었을 때 이거 보여주셈</div>
-      </Route>
     </Switch>
     </div>
   );

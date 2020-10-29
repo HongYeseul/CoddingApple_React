@@ -9,6 +9,10 @@
   color: white;
 }
 
+.btn-danger{
+  margin: 0 2px;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
