@@ -1,0 +1,50 @@
+//@import './reset.scss';
+// 자주 쓰는 css문법들을 다른 파일로 빼서 사용할 수 있게 한다.
+
+// SASS 문법
+// 1. 변수에 데이터를 저장해서 쓰자
+//  $변수명 : 변수에 넣을 값
+// 2. @import 파일 경로
+// 3. 셀렉터 대신 쓰는 nesting
+// 4. 코드 복붙하지 말고 @extend
+// 5. 함수는 @mixin / @include
+
+$메인칼라 : ff0000;
+
+.red{
+    color: s메인칼라;
+}
+
+@mixin 함수(){
+    background-color: #eeeeee;
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 500px;
+    width: 100%;
+    margin:auto;
+}
+
+.my-alert{
+    @include 함수()
+} // 다른 색상의 alert UI가 필요하다면?
+
+.my-alert2{
+    @extend .my-alert;
+    background: #ffe591;
+}
+.my-alert p{
+    margin-bottom: 0;
+}
+
+
+// div.container h4 {
+//     color: blue;
+// } 대신
+// div.container{  //nesting
+//     h4{
+//         color: blue;
+//     }
+//     p{
+//         color: green;
+//     }
+// }

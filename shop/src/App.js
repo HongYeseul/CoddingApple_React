@@ -19,7 +19,6 @@ function App() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
             <Nav.Link><Link to="/">Home</Link></Nav.Link>
-            {/* 리액트 라우터 문법을 이용한 버튼 만들기*/}
             <Nav.Link><Link to="/detail">Detail</Link></Nav.Link>
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
@@ -56,7 +55,7 @@ function App() {
         </div>
       </Route>
 
-      <Route path="/detail/:id"> {/* :id는 뒤에 아무 문자나 입력 받겠다는 URL 작명법. 콜론 뒤에 마음대로 작명하면 됨 */}
+      <Route path="/detail/:id"> 
         <Detail shoes={shoes}/>
       </Route>
       
