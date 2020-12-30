@@ -54,11 +54,24 @@ function App() {
             }
           </div>
           <button className="btn btn-primary" onClick={()=>{
+
+            //post로 요청 시 (예제 코드)
+            // axios.post('서버URL', {id : 'coddingapple', pw : 1234});
+            // + 요청 시 header도 설정 가능
+
+            // 만약 컴포넌트 로드 시 ajax로 데이터를 가지고 오고 싶을 때는 컴포넌트 내 존재하는 useEffect() 내 axios.get() 등을 사용하면 된다.
+            // 참고 ) useEffect는 컴포넌트 등장 & 업데이트 시 실행할 코드가 들어가게 된다.
+            //        만약 업데이트 시 실행되지 않게 하고싶다면 useEffect( ()=>{}, [])로 대괄호 삽입을 해주면 된다.
+
+            // 로딩 중이라는 UI를 띄우고 싶을 때 추가하는 구간
+
             axios.get('https://codingapple1.github.io/shop/data2.json')
             .then((result)=>{
+              // 로딩 중이라는 UI 지우기
               console.log("Complete");
               console.log(result.data); 
 
+              // *** 저번시간 숙제 : 더보기 버튼을 누르면 상품 데이터 3개를 가져온 후 메인페이지 하단에 상품 레이아웃 3개를 추가해보십시오. ***
               // !! 더보기 버튼을 클릭했을 때 동적으로 신발들이 더 생기게 하려면 Card를 더 생성해주는것이 아닌, shoes변수에 상품데이터 3개를 추가해주면 된다. !!
               // * ...연산자는 괄호를 벗겨주는 역할을 한다.
               shoes변경([...shoes, ...result.data]);
