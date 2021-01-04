@@ -1,9 +1,12 @@
 import React, {useContext, useEffect, useState} from 'react';
+import { Navbar, Nav, NavDropdown, Button, Jumbotron } from 'react-bootstrap';
 import {useHistory, useParams} from 'react-router-dom';
 import styled from 'styled-components';
 import './Detail.scss'
 
 import {재고context} from './App.js';
+import {CSSTransition} from 'react-transition-group'; //탭 키를 눌렀을 때 애니메이션 효과를 넣기 위함
+// 이는 컴포넌트 등장/업데이트 시 transition을 쉽게 쉽게 줄 수 있다.
 
 let 박스 = styled.div`
     padding : 20px;
@@ -18,6 +21,9 @@ function Detail(props){
 
   let [alert, alert변경] = useState(true);
   let 재고 = useContext(재고context);
+
+  let [누른탭, 누른탭변경] = useState(0); //이 때 0은 기본값
+  let [스위치, 스위치변경] = useState(false);
 
   useEffect(()=>{  
     //2초 후에 alert 창을 보이지 않게 하려면
@@ -67,9 +73,51 @@ function Detail(props){
           }}>뒤로가기</button> 
         </div>
       </div>
+
+      {/* UI 만드는 법
+        1. UI 상태를 true/false state로 저장해둠
+        2. state에 따라 UI 보이게 안보이게
+
+        => TAB UI 만드는 법
+        1. 몇번째 버튼 눌렀는지를 state로 저장해둠
+        2. state에 따라 UI 보이게 안보이게
+      */}
+      <Nav className="mt-5" variant="tabs" defaultActiveKey="link-0"> {/* defaultActiveKey : 기본으로 눌러진 버튼의 eventKey */}
+        <Nav.Item>
+          <Nav.Link eventKey="link-0" onClick={()=>{ 스위치변경(false); 누른탭변경(0) }}>Active</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="link-1" onClick={()=>{ 스위치변경(false); 누른탭변경(1) }}>Option 2</Nav.Link>
+        </Nav.Item>
+      </Nav>
+
+      {/* CSS Transition 사용법
+        1. 애니메이션 필요한 곳 감싸기
+        2. in, classNames, timeout 넣기 (in은 switch같은 역할)
+        3. class로 애니메이션 넣기
+        4. 원할 때 스위치 켜기
+      */}
+      <CSSTransition in={스위치} classNames="wow" timeout={500}>
+        <TabContent 누른탭={누른탭} 스위치변경={스위치변경}/>
+      </CSSTransition>
     </div>
   )
 }
+
+function TabContent(props){
+
+  // 이 컴포넌트가 등장하거나 업데이트될 때 스위치 true로 바꿔주면됨.
+  useEffect(()=>{
+    props.스위치변경(true);
+  });
+
+  if(props.누른탭 === 0){
+    return <div>0번째 누른 내용입니다.</div>
+  }else if(props.누른탭 === 1){
+    return <div>1번째 누른 내용입니다.</div>
+  }
+}
+
 
 function Info(props){
   return(
