@@ -100,6 +100,7 @@ function App() {
       <Route path="/cart">
         {/* redux 쓰는 이유 ?
           1. props 없이 모든 컴포넌트가 state 갖다 쓰기 가능
+          2. state 데이터 관리 가능
         */}
         <Cart/>
       </Route>

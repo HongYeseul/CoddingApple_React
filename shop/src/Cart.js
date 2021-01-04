@@ -15,12 +15,19 @@ function Cart(props){
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>{ props.state[0].name }</td> {/* props로 만들어졌기 때문에 props로 받아 props.~로 출력한다. */}
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                </tr>
+                    {
+                        props.state.map((a,i) => {
+                            return (
+                                <tr key={i}>
+                                    <td>{ a.id }</td>
+                                    <td>{ a.name }</td>
+                                    <td>{ a.quan }</td>
+                                    <td><button onClick={()=>{ props.dispatch({type: '수량증가'}) }}>+</button> {/* dispatch(수정)요청 */}
+                                        <button onClick={()=>{ props.dispatch({type: '수량감소'}) }}>-</button></td> 
+                                </tr>
+                            )
+                        })
+                    }
                 
                 </tbody>
             </Table>
