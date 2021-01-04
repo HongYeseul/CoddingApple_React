@@ -7,6 +7,15 @@ import axios from 'axios';
 
 import {Link, Route, Switch} from 'react-router-dom'
 
+// 리액트 사이트 build & Github Page로 배포해보기
+// 배포하기 전 확인 해야 할 사항
+// 사이트를 배포할 때
+// http://codingapple.com/ 여기에 배포할 경우엔 따로 설정이 필요없이 대충 해도 되지만
+// http://codingapple.com/blog/ 이런 하위 경로에 배포하고 싶다면 프로젝트에 설정이 따로 필요하다. 
+// 프로젝트 파일 중 package.json 이라는 파일을 오픈하면 큰 object가 하나 있는데
+// "homepage": "http://codingapple.com/blog",
+// 라는 homepage key값을 추가해 주면 된다.
+
 function App() {
 
   let [shoes, shoes변경] = useState(Data);
@@ -69,10 +78,6 @@ function App() {
           }}>더보기</button>
         </div>
       </Route>
-
-     {/* 컴포넌트가 여러개가 중첩돼있을 때 state 전달도 그냥 props를 여러번 전송하면 된다. 
-        하위 컴포넌트가 상위 컴포넌트 state변경을 위해서도 state 변경함수를 사용해야한다. 이 때 사용하는 state 변경함수도 props로 전송해서 쓰면 된다. */}
-     {/* 그러나 이렇게 되면 props지옥이 되기 때문에 Context API 혹은 redux를 사용한다. */}
 
       <Route path="/detail/:id"> 
         <Detail shoes={shoes} 재고={재고} 재고변경={재고변경}/>
