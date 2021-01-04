@@ -4,6 +4,7 @@ import './App.css';
 import Data from './data.js';
 import Detail from './Detail.js';
 import axios from 'axios';
+import Cart from './Cart.js';
 
 import {Link, Route, Switch} from 'react-router-dom'
 
@@ -96,6 +97,13 @@ function App() {
           </재고context.Provider>
       </Route>
       
+      <Route path="/cart">
+        {/* redux 쓰는 이유 ?
+          1. props 없이 모든 컴포넌트가 state 갖다 쓰기 가능
+        */}
+        <Cart/>
+      </Route>
+
     </Switch>
     </div>
   );
