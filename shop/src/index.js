@@ -8,7 +8,17 @@ import { BrowserRouter } from 'react-router-dom';
 
 
 import {Provider} from 'react-redux';
-import {createStore} from 'redux';
+import {combineReducers, createStore} from 'redux';
+
+let alert초기값 = true;
+
+function reducer2(state = alert초기값, 액션){
+  if (액션.type === 'alert닫기'){
+    return false
+  } else {
+    return state
+  }
+}
 
 
 let 초기값 = [
@@ -31,7 +41,8 @@ function reducer( state = 초기값, 액션){
   }
 }
 
-let store = createStore( reducer );
+// state 보관함, 여러개 사용할 때는 combineReducers() 사용
+let store = createStore( combineReducers({reducer, reducer2}) );
 
 ReactDOM.render(
   <React.StrictMode>

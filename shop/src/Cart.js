@@ -31,7 +31,13 @@ function Cart(props){
                 
                 </tbody>
             </Table>
-            
+            { props.alert열렸니 === true
+            ? <div className="alert alert-primary">
+                <p>지금 구매하시면 신규할인 20%</p>
+                <button onClick={()=>{props.dispatch({type : 'alert닫기'})}}>닫기</button>
+            </div>
+            : null
+            }
         </div>
     )
 }
@@ -41,12 +47,12 @@ function Cart(props){
 // 2. export default conntect()()
 // 3. store 데이터를 props로 등록하기
 
+// 하지만 이 부분은 이 페이지에서만 사용하는 데이터이므로 redux에 저장해서 가져오는 것은 좋지 않은 습관이므로 주의가 필요하다.
 function 함수명(state){ // redux store 데이터 가져와서 props로 변환해주는 함수
     return {
-        state : state // state라는 이름의 props로 바꿔달라는 뜻.
-        // 상품명 : state[0].name 과 같이 만들어 줘도 된다.
+        state : state.reducer, // reducer에 담긴 데이터 가져오기
+        alert열렸니 : state.reducer2
     }
 }
 
 export default connect(함수명)(Cart);
-// export default Cart;
