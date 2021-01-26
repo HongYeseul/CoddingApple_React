@@ -5,22 +5,15 @@ import Data from './data.js';
 import axios from 'axios';
 import Cart from './Cart.js';
 import {Link, Route, Switch, useHistory} from 'react-router-dom'
-let Detail = lazy( ()=>{ return import('./Detail.js') } ); // 상단에 import가 먼저 온 후 선언을 해야 에러가 나지 않음!
-// 메인페이지 방문시 한번에 다른 페이지들을 모두 import 해온다.
-// 이렇게 되면 사이트 초기 접속속도가 굉장히 느려질 수 있기 때문에 첫 방문시 import가 바로 필요없는 페이지는 lazy하게 import를 시키는 방법도 있다.
+let Detail = lazy( ()=>{ return import('./Detail.js') } ); 
 
-// export는 외부로 보내기 위해 사용하는 함수. Detail.js로 보내기 위해 사용하였다.
 export let 재고context = React.createContext();
-// 1. props 대신 context를 쓰자!
-// --> 하위 컴포넌트들이 props 없이도 부모의 값을 사용가능
-// context 만들기
-//    1. React.createContext()로 범위 생성
-//    2. 같은 값을 공유할 HTML을 <범위>로 싸매기
-//    3. useContext(범위)로 공유된 값을 사용하기
 
-// 2. Reducx 라는 라이브러리 사용하기!
-// : 모든 컴포넌트 파일들이 같은 값을 공유할 수 있는 저장공간 생성 가능 
-//    + state 데이터 관리 기능
+// PWA ?
+// 웹사이트를 안드로이드/ios 모바일 앱처럼 사용할 수 있게 만드는 일종의 웹개발 기술
+// PWA를 만드는 방법은 20년 10월 30일 이전과 이후로 2가지 방법이 있는데, 이 프로젝트 파일은 10월에 생성했으므로 이전 방법을 사용하면 된다.
+// PWA를 위해 manifest.json과 service-worker.js 라는 이름의 파일 두 개를 만들면 된다.
+// 이때 index.js에서 한줄만 바꿔주면 두개의 파일을 쉽게 생성이 가능하다.
 
 function App() {
 
