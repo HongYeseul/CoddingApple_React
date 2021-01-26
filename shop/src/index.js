@@ -31,31 +31,27 @@ function reducer( state = 초기값, 액션){
   // 액션.payload로 사용할 수 있음
   if(액션.type === '항목추가'){
     let copy = [...state];
-    let flag = 0;
 
-    copy.map(function(v, i){
-      if(v.name == 액션.payload.name){
-        console.log("동일한 아이템")
-        v.quan++;
-        flag = 1;
-      }
-    })
+    let found = state.findIndex( (a)=>{return a.name === 액션.payload.name }); // array 내에서 값이 있는지 알아내는 함수
 
     액션.payload.id = copy.length;
-    if(!flag){
-      copy.push(액션.payload);
+    if(found >= 0){
+      let copy = [...state]
+      copy[found].quan++;
       return copy;
     }else{
+      let copy = [...state]
+      copy.push(액션.payload)
       return copy;
     }
   }
   else if(액션.type === '수량증가'){
     let copy = [...state];
-    copy[0].quan++;
+    copy[액션.데이터].quan++;
     return copy 
   }else if(액션.type === '수량감소'){
     let copy = [...state];
-    copy[0].quan--;
+    copy[액션.데이터].quan--;
     return copy;
   }else{
     return state
