@@ -1,51 +1,13 @@
-import React, {useContext, useState} from 'react';
+import React, {useState, useContext, lazy, Suspense} from 'react';
 import { Navbar, Nav, NavDropdown, Button, Jumbotron } from 'react-bootstrap';
 import './App.css';
 import Data from './data.js';
-import Detail from './Detail.js';
 import axios from 'axios';
 import Cart from './Cart.js';
-
 import {Link, Route, Switch, useHistory} from 'react-router-dom'
-
-// codding Tip !
-// 만약 이 변수가 참이면 <p></p>를 뱉고 아니라면 null 뱉기 위해서는
-// 1 == 1
-// ? <p> 참이면 보여줄 HTML</p>
-// : null
-// 이라고 표현 했으나
-// &&연산자를 사용하면 쉽게 표현할 수 있다.
-// 1 == 1 && <p>참이면 보여줄 HTML</p> 
-// 여기서 왼쪽 조건식이 true면 오른쪽 JSX가 그 자리에 남고 조건식이 false라면 false가 남게된다. 
-// (false가 남으면 HTML로 렌더링하지 않는다.)
-
-// 경우에 따라서 다른 HTML을 보여주고 싶은 경우
-// 자바스크립트 오브젝트자료형에 내가 보여주고 싶은 HTML을 담은 후 접근하는 enum방식을 사용할 수도 있다.
-// { 
-//   info : <p>상품정보</p>,
-//   shipping : <p>배송관련</p>,
-//   refund : <p>환불약관</p>
-// }[현재상태]
-// object{}뒤에 []를 붙여 key값이 현재상태인 자료를 뽑겠다고 알리는 것이다.
-// -> 그러면 현재상태라는 변수의 값에 따라 원하는 HTML을 보여줄 수 있다.
-// 혹은 오브젝트를 변수로 저장해두고 사용을 해도 된다.
-// var 탭UI = { 
-//   info : <p>상품정보</p>,
-//   shipping : <p>배송관련</p>,
-//   refund : <p>환불약관</p>
-// }
-
-// function Component() {
-//   var 현재상태 = 'info';
-//   return (
-//     <div>
-//       {
-//         탭UI[현재상태]
-//       }
-//     </div>
-//   )
-// } 
-
+let Detail = lazy( ()=>{ return import('./Detail.js') } ); // 상단에 import가 먼저 온 후 선언을 해야 에러가 나지 않음!
+// 메인페이지 방문시 한번에 다른 페이지들을 모두 import 해온다.
+// 이렇게 되면 사이트 초기 접속속도가 굉장히 느려질 수 있기 때문에 첫 방문시 import가 바로 필요없는 페이지는 lazy하게 import를 시키는 방법도 있다.
 
 // export는 외부로 보내기 위해 사용하는 함수. Detail.js로 보내기 위해 사용하였다.
 export let 재고context = React.createContext();
@@ -132,7 +94,9 @@ function App() {
       <Route path="/detail/:id"> 
           {/* 다른파일로 전송하고 싶을 때 */}
           <재고context.Provider value={재고}>
-            <Detail shoes={shoes} 재고={재고} 재고변경={재고변경}/>
+            <Suspense fallback={ <div>로딩중입니다~!</div> }> {/* 컴포넌트 로딩 전까지 띄울 HTML */}
+              <Detail shoes={shoes} 재고={재고} 재고변경={재고변경}/> {/* Detail컴포넌트가 필요해질때 그때서야 import Detail을 해준다. */}
+            </Suspense>
           </재고context.Provider>
       </Route>
       
