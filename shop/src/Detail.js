@@ -7,6 +7,7 @@ import './Detail.scss'
 import {재고context} from './App.js';
 import {CSSTransition} from 'react-transition-group'; //탭 키를 눌렀을 때 애니메이션 효과를 넣기 위함
 // 이는 컴포넌트 등장/업데이트 시 transition을 쉽게 쉽게 줄 수 있다.
+import { connect } from 'react-redux';
 
 let 박스 = styled.div`
     padding : 20px;
@@ -66,6 +67,8 @@ function Detail(props){
 
           <button className="btn btn-danger" onClick={()=>{
             props.재고변경([props.재고[0]-1,11,12]);
+            props.dispatch( {type : '항목추가', payload : {id: 3, name : 찾은상품.title, quan:1} });
+            history.push('/cart') // 페이지 이동 시(reload) 데이터가 초기화되기 때문에 라우터 함수를 이용하여 페이지 이동을 강제화
           }}>주문하기</button> 
 
           <button className="btn btn-danger" onClick={()=>{
@@ -125,4 +128,12 @@ function Info(props){
   )
 }
 
-  export default Detail;
+// state를 props화 해주는걸 써줘야 dispatch도 가능해진다.
+function 함수명(state){ // redux store 데이터 가져와서 props로 변환해주는 함수
+  return {
+      state : state.reducer, // reducer에 담긴 데이터 가져오기
+      alert열렸니 : state.reducer2
+  }
+}
+
+export default connect(함수명)(Detail); // connect도 import 해 주어야 함.

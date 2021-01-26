@@ -26,9 +26,30 @@ let 초기값 = [
   {id : 1, name : '멋진신발2', quan : 1}
 ];
 
-// redux에선 state데이터의 수정방법을 미리 정의 해야 한다. 
+// 보낸 자료는 액션 파라미터에 저장되어있음.
 function reducer( state = 초기값, 액션){
-  if(액션.type === '수량증가'){
+  // 액션.payload로 사용할 수 있음
+  if(액션.type === '항목추가'){
+    let copy = [...state];
+    let flag = 0;
+
+    copy.map(function(v, i){
+      if(v.name == 액션.payload.name){
+        console.log("동일한 아이템")
+        v.quan++;
+        flag = 1;
+      }
+    })
+
+    액션.payload.id = copy.length;
+    if(!flag){
+      copy.push(액션.payload);
+      return copy;
+    }else{
+      return copy;
+    }
+  }
+  else if(액션.type === '수량증가'){
     let copy = [...state];
     copy[0].quan++;
     return copy 

@@ -21,8 +21,8 @@ function Cart(props){
                                 <tr key={i}>
                                     <td>{ a.id }</td>
                                     <td>{ a.name }</td>
-                                    <td>{ a.quan }</td>
-                                    <td><button onClick={()=>{ props.dispatch({type: '수량증가'}) }}>+</button> {/* dispatch(수정)요청 */}
+                                    <td>{ a.quan }</td> { /* dispatch할 때 데이터도 같이 보내는 방법 */ }
+                                    <td><button onClick={()=>{ props.dispatch({type: '수량증가', payload : {name: 'kim'}}) }}>+</button> {/* dispatch(수정)요청 */}
                                         <button onClick={()=>{ props.dispatch({type: '수량감소'}) }}>-</button></td> 
                                 </tr>
                             )
