@@ -8,6 +8,45 @@ import Cart from './Cart.js';
 
 import {Link, Route, Switch, useHistory} from 'react-router-dom'
 
+// codding Tip !
+// 만약 이 변수가 참이면 <p></p>를 뱉고 아니라면 null 뱉기 위해서는
+// 1 == 1
+// ? <p> 참이면 보여줄 HTML</p>
+// : null
+// 이라고 표현 했으나
+// &&연산자를 사용하면 쉽게 표현할 수 있다.
+// 1 == 1 && <p>참이면 보여줄 HTML</p> 
+// 여기서 왼쪽 조건식이 true면 오른쪽 JSX가 그 자리에 남고 조건식이 false라면 false가 남게된다. 
+// (false가 남으면 HTML로 렌더링하지 않는다.)
+
+// 경우에 따라서 다른 HTML을 보여주고 싶은 경우
+// 자바스크립트 오브젝트자료형에 내가 보여주고 싶은 HTML을 담은 후 접근하는 enum방식을 사용할 수도 있다.
+// { 
+//   info : <p>상품정보</p>,
+//   shipping : <p>배송관련</p>,
+//   refund : <p>환불약관</p>
+// }[현재상태]
+// object{}뒤에 []를 붙여 key값이 현재상태인 자료를 뽑겠다고 알리는 것이다.
+// -> 그러면 현재상태라는 변수의 값에 따라 원하는 HTML을 보여줄 수 있다.
+// 혹은 오브젝트를 변수로 저장해두고 사용을 해도 된다.
+// var 탭UI = { 
+//   info : <p>상품정보</p>,
+//   shipping : <p>배송관련</p>,
+//   refund : <p>환불약관</p>
+// }
+
+// function Component() {
+//   var 현재상태 = 'info';
+//   return (
+//     <div>
+//       {
+//         탭UI[현재상태]
+//       }
+//     </div>
+//   )
+// } 
+
+
 // export는 외부로 보내기 위해 사용하는 함수. Detail.js로 보내기 위해 사용하였다.
 export let 재고context = React.createContext();
 // 1. props 대신 context를 쓰자!
