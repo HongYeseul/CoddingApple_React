@@ -9,21 +9,6 @@ let Detail = lazy( ()=>{ return import('./Detail.js') } );
 
 export let 재고context = React.createContext();
 
-// DB없이 데이터를 저장하고 싶다면 localStorage를 사용하면 된다.
-// 대표적인 localStorage 문법 3가지
-// localStorage.setItem('데이터이름', '데이터');
-// localStorage.getItem('데이터이름');
-// localStorage.removeItem('데이터이름') 저장된 내용은 application 탭에서 확인이 가능하다.
-// localStorage에 오브젝트/어레이를 저장하려면 텍스트 자료만 저장가능하기 때문에 바로 저장은 불가능하다.
-// 이를 저장하려면 JSON으로 바꿔준 후 저장하면 된다.
-// localStorage.setItem('obj', JSON.stringify({name:'kim'}) ); -->  “{“name”:”kim”}” 
-// 이 데이터들을 다시 꺼내려면 
-// var a = localStorage.getItem('obj');
-// var b = JSON.parse(a) 사용
-
-// 오늘의 추가 과제
-// : 최근 본 상품 UI 기능 만들기 - 유저가 상품을 클릭하면 어떤 상품을 봤는지 localStorage에 저장 후 페이지에 보여주면 된다.
-
 function App() {
 
   let [shoes, shoes변경] = useState(Data);

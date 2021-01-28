@@ -39,6 +39,18 @@ function Detail(props){
 
   let 찾은상품 = props.shoes.find( x=> x.id == id);
 
+  useEffect(()=>{
+    let arr = localStorage.getItem('watched');
+    if(arr == null){ arr = [] } else{ arr = JSON.parse(arr);}
+
+    arr.push(id);
+    arr = new Set(arr);
+    arr = [...arr];
+
+    localStorage.setItem('watched', JSON.stringify(arr));
+  }, []); // [] 넣을 시 재 렌더링시에는 실행 되지않음
+  // 이 내용을 가지고 UI에 표현하면 최근에 본 항목 표현은 끝
+
   return (
     <div className="container">
         <박스>
